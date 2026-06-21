@@ -2,7 +2,7 @@
 <html lang="en" data-theme="cyberpunk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>RM. — Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,6 +57,55 @@ body.loading-active{overflow:hidden;}
 .loader-status{font-family:var(--font-mono);font-size:.7rem;color:var(--accent);letter-spacing:.2em;text-transform:uppercase;min-height:1em;}
 [data-theme="spiderverse"] .loader-status{font-family:'Comic Neue',cursive;font-weight:700;font-size:1rem;letter-spacing:.05em;color:var(--accent3);}
 
+/* ══════════════ NAV ══════════════ */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 3rem;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);transition:background .4s,border-color .4s;}
+.nav-logo{font-family:var(--font-display);font-size:1.3rem;font-weight:900;color:var(--accent);letter-spacing:.1em;text-shadow:0 0 20px var(--accent);transition:all .4s;cursor:pointer;}
+[data-theme="spiderverse"] .nav-logo{font-size:1.7rem;letter-spacing:.05em;-webkit-text-stroke:1.5px #000;text-shadow:3px 3px 0 var(--accent2);}
+.nav-links{display:flex;gap:2.5rem;list-style:none;flex-wrap:wrap;}
+.nav-links a{font-family:var(--font-mono);font-size:.85rem;color:var(--text-dim);text-decoration:none;letter-spacing:.15em;text-transform:uppercase;transition:color .2s;position:relative;cursor:pointer;}
+.nav-links a::before{content:'> ';color:var(--accent);opacity:0;transition:opacity .2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);}
+.nav-links a:hover::before,.nav-links a.active::before{opacity:1;}
+[data-theme="spiderverse"] .nav-links a{font-family:'Comic Neue',cursive;font-weight:700;letter-spacing:.05em;font-size:.95rem;}
+[data-theme="spiderverse"] .nav-links a::before{content:'★ ';}
+[data-theme="spiderverse"] .nav-links a:hover,[data-theme="spiderverse"] .nav-links a.active{color:var(--accent2);text-decoration:underline wavy var(--accent);}
+[data-theme="spiderverse"] .nav-links a.active::before,[data-theme="spiderverse"] .nav-links a:hover::before{opacity:1;color:var(--accent2);}
+
+.nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:32px;height:32px;background:transparent;border:none;cursor:pointer;}
+.nav-burger span{display:block;width:100%;height:2px;background:var(--accent);transition:all .3s;border-radius:1px;}
+[data-theme="spiderverse"] .nav-burger span{background:var(--accent2);height:3px;}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+/* Overlay and mobile drawer live OUTSIDE <nav> in the DOM so they
+   are never clipped by nav's own box / stacking context. */
+.nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:350;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;}
+.nav-overlay.open{opacity:1;visibility:visible;}
+
+.mobile-drawer{
+  display:none;
+  position:fixed;
+  top:0;right:0;
+  height:100vh;
+  width:min(78vw,300px);
+  background:var(--nav-bg);
+  backdrop-filter:blur(16px);
+  border-left:1px solid var(--border);
+  flex-direction:column;
+  align-items:flex-start;
+  padding:6rem 2rem 2rem;
+  transform:translateX(100%);
+  transition:transform .35s cubic-bezier(.4,0,.2,1);
+  z-index:400;
+  overflow-y:auto;
+}
+.mobile-drawer.open{transform:translateX(0);}
+.mobile-drawer a{display:block;width:100%;padding:1rem 0;font-size:1rem;border-bottom:1px solid var(--border);font-family:var(--font-mono);color:var(--text-dim);text-decoration:none;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;}
+.mobile-drawer a.active{color:var(--accent);}
+[data-theme="spiderverse"] .mobile-drawer a{font-family:'Comic Neue',cursive;font-weight:700;font-size:1.1rem;}
+[data-theme="spiderverse"] .mobile-drawer a.active{color:var(--accent2);}
+
 /* ══════════════ THEME SWITCHER ══════════════ */
 #theme-switcher{position:fixed;top:1.25rem;right:1.5rem;z-index:9000;display:flex;border:1px solid var(--border);background:var(--nav-bg);backdrop-filter:blur(12px);overflow:hidden;transition:border-color .3s;}
 .theme-btn{padding:.65rem 1.1rem;border:none;background:transparent;cursor:pointer;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim);transition:all .25s;font-family:var(--font-mono);}
@@ -91,30 +140,6 @@ body.loading-active{overflow:hidden;}
 .music-bars.paused .music-bar{animation-play-state:paused;}
 [data-theme="spiderverse"] .music-bar{background:var(--accent2);}
 .music-bars.no-track .music-bar{background:var(--text-dim);opacity:.4;}
-
-/* ══════════════ NAV ══════════════ */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 3rem;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);transition:background .4s,border-color .4s;}
-.nav-logo{font-family:var(--font-display);font-size:1.3rem;font-weight:900;color:var(--accent);letter-spacing:.1em;text-shadow:0 0 20px var(--accent);transition:all .4s;cursor:pointer;}
-[data-theme="spiderverse"] .nav-logo{font-size:1.7rem;letter-spacing:.05em;-webkit-text-stroke:1.5px #000;text-shadow:3px 3px 0 var(--accent2);}
-.nav-links{display:flex;gap:2.5rem;list-style:none;flex-wrap:wrap;}
-.nav-links a{font-family:var(--font-mono);font-size:.85rem;color:var(--text-dim);text-decoration:none;letter-spacing:.15em;text-transform:uppercase;transition:color .2s;position:relative;cursor:pointer;}
-.nav-links a::before{content:'> ';color:var(--accent);opacity:0;transition:opacity .2s;}
-.nav-links a:hover,.nav-links a.active{color:var(--accent);}
-.nav-links a:hover::before,.nav-links a.active::before{opacity:1;}
-[data-theme="spiderverse"] .nav-links a{font-family:'Comic Neue',cursive;font-weight:700;letter-spacing:.05em;font-size:.95rem;}
-[data-theme="spiderverse"] .nav-links a::before{content:'★ ';}
-[data-theme="spiderverse"] .nav-links a:hover,[data-theme="spiderverse"] .nav-links a.active{color:var(--accent2);text-decoration:underline wavy var(--accent);}
-[data-theme="spiderverse"] .nav-links a.active::before,[data-theme="spiderverse"] .nav-links a:hover::before{opacity:1;color:var(--accent2);}
-
-.nav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:32px;height:32px;background:transparent;border:none;cursor:pointer;z-index:200;}
-.nav-burger span{display:block;width:100%;height:2px;background:var(--accent);transition:all .3s;border-radius:1px;}
-[data-theme="spiderverse"] .nav-burger span{background:var(--accent2);height:3px;}
-.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-.nav-burger.open span:nth-child(2){opacity:0;}
-.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-
-.nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:150;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;}
-.nav-overlay.open{opacity:1;visibility:visible;}
 
 /* ══════════════ SECTION SYSTEM ══════════════ */
 .page-section{
@@ -425,30 +450,11 @@ h1.hero-name:hover span{animation:glitch .3s linear;}
   nav{padding:.9rem 1.1rem;}
   .nav-logo{font-size:1.15rem;}
 
-  /* hide inline nav links, show burger */
+  /* hide inline nav links + show burger on phones */
+  .nav-links{display:none;}
   .nav-burger{display:flex;}
-  .nav-links{
-    position:fixed;
-    top:0;right:0;
-    height:100vh;
-    width:min(78vw,300px);
-    background:var(--nav-bg);
-    backdrop-filter:blur(16px);
-    border-left:1px solid var(--border);
-    flex-direction:column;
-    align-items:flex-start;
-    gap:0;
-    padding:6rem 2rem 2rem;
-    transform:translateX(100%);
-    transition:transform .35s cubic-bezier(.4,0,.2,1);
-    z-index:180;
-  }
-  .nav-links.open{transform:translateX(0);}
-  .nav-links li{width:100%;}
-  .nav-links a{display:block;width:100%;padding:1rem 0;font-size:1rem;border-bottom:1px solid var(--border);}
-  [data-theme="spiderverse"] .nav-links a{font-size:1.1rem;}
 
-  .page-section{padding:1.75rem 1.25rem 6rem;top:62px;}
+  .page-section{padding:1.75rem 1.25rem 7.5rem;top:62px;}
   #about{grid-template-columns:1fr;gap:2rem;align-content:start;padding-top:1rem;min-height:auto;}
   .hero-right{order:-1;margin-bottom:.5rem;}
   .id-card{width:100%;max-width:100%;}
@@ -478,33 +484,34 @@ h1.hero-name:hover span{animation:glitch .3s linear;}
 
   .gallery{grid-template-columns:repeat(2,1fr);gap:.5rem;}
 
-  /* stack theme switcher + music player so they never overlap */
+  /* ── Bottom UI stack: theme switcher ABOVE music player,
+       both full-width-ish and never overlapping ── */
   #theme-switcher{
     top:auto;
-    bottom:1rem;
+    bottom:calc(4.5rem + env(safe-area-inset-bottom, 0px));
     left:1rem;
-    right:auto;
+    right:1rem;
+    width:auto;
+    justify-content:center;
   }
-  .theme-btn{padding:.5rem .7rem;font-size:.55rem;}
+  .theme-btn{flex:1;padding:.6rem .5rem;font-size:.62rem;}
 
   #music-player{
-    bottom:1rem;
+    bottom:calc(1rem + env(safe-area-inset-bottom, 0px));
+    left:1rem;
     right:1rem;
-    left:auto;
-    max-width:calc(100vw - 7.5rem);
-    padding:.55rem .85rem;
-    gap:.6rem;
+    width:auto;
+    max-width:none;
+    justify-content:flex-start;
   }
-  .music-info{max-width:110px;}
-  .music-title{font-size:.58rem;}
-  .music-artist{font-size:.52rem;}
-  .music-btn{width:32px;height:32px;}
+  .music-info{max-width:none;flex:1;}
+  .music-title{font-size:.62rem;}
+  .music-artist{font-size:.55rem;}
 }
 
 @media(max-width:420px){
   .gallery{grid-template-columns:repeat(2,1fr);}
   .socials-grid{grid-template-columns:1fr;}
-  #music-player .music-info{max-width:90px;}
 }
 </style>
 </head>
@@ -559,7 +566,18 @@ h1.hero-name:hover span{animation:glitch .3s linear;}
     <span></span><span></span><span></span>
   </button>
 </nav>
+
+<!-- Mobile drawer + overlay live at body root level, outside <nav>,
+     so they can never be clipped by nav's own stacking context. -->
 <div class="nav-overlay" id="navOverlay"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <a onclick="navigateTo('about')" class="active" data-target="about">About</a>
+  <a onclick="navigateTo('skills')" data-target="skills">Skills</a>
+  <a onclick="navigateTo('projects')" data-target="projects">Projects</a>
+  <a onclick="navigateTo('gallery')" data-target="gallery">Gallery</a>
+  <a onclick="navigateTo('education')" data-target="education">Education</a>
+  <a onclick="navigateTo('socials')" data-target="socials">Socials</a>
+</div>
 
 <!-- ══ ABOUT ══ -->
 <div class="page-section active" id="about">
@@ -799,34 +817,34 @@ function showSection(id) {
 
   currentSection = id;
 
-  document.querySelectorAll('.nav-links a').forEach(a => {
+  document.querySelectorAll('.nav-links a, .mobile-drawer a').forEach(a => {
     a.classList.toggle('active', a.dataset.target === id);
   });
 }
 
-document.querySelectorAll('.nav-links a').forEach(a => {
+document.querySelectorAll('.nav-links a, .mobile-drawer a').forEach(a => {
   a.addEventListener('click', e => e.preventDefault());
 });
 
 /* ══════════════ MOBILE HAMBURGER MENU ══════════════ */
-const navBurger  = document.getElementById('navBurger');
-const navLinksEl = document.getElementById('navLinks');
-const navOverlay = document.getElementById('navOverlay');
+const navBurger     = document.getElementById('navBurger');
+const mobileDrawer   = document.getElementById('mobileDrawer');
+const navOverlay    = document.getElementById('navOverlay');
 
 function openMobileMenu() {
   navBurger.classList.add('open');
-  navLinksEl.classList.add('open');
+  mobileDrawer.classList.add('open');
   navOverlay.classList.add('open');
 }
 
 function closeMobileMenu() {
   navBurger.classList.remove('open');
-  navLinksEl.classList.remove('open');
+  mobileDrawer.classList.remove('open');
   navOverlay.classList.remove('open');
 }
 
 navBurger.addEventListener('click', () => {
-  if (navLinksEl.classList.contains('open')) {
+  if (mobileDrawer.classList.contains('open')) {
     closeMobileMenu();
   } else {
     openMobileMenu();
@@ -835,8 +853,9 @@ navBurger.addEventListener('click', () => {
 
 navOverlay.addEventListener('click', closeMobileMenu);
 
-/* Wrapper used by nav links: navigates to a section AND closes
-   the mobile menu afterward (no-op on desktop since menu isn't open) */
+/* Wrapper used by every nav link (desktop + mobile drawer):
+   navigates to a section AND closes the mobile menu afterward
+   (closing is a no-op on desktop since the drawer isn't open) */
 function navigateTo(id) {
   showSection(id);
   closeMobileMenu();
@@ -845,6 +864,19 @@ function navigateTo(id) {
 /* ══════════════════════════════════════════
    MUSIC — simple <audio> element, manual files
    ══════════════════════════════════════════
+   HOW TO ADD YOUR OWN MUSIC:
+   1. Create a folder named "music" next to this HTML file.
+   2. Drop in two audio files (mp3 works best), one per theme:
+        music/cyberpunk-theme.mp3
+        music/spiderverse-theme.mp3
+   3. Rename the files below in `tracks` to match your filenames,
+      and update the title/artist text shown in the player.
+   4. That's it — the play button, pause button, and theme-switch
+      crossfade all work automatically once the files are there.
+
+   NOTE: until you add your own files, the button will look
+   greyed-out and say "No track loaded" — that's expected, not
+   a bug. It lights up automatically once a real file is found.
 */
 const musicBtn    = document.getElementById('musicBtn');
 const iconPlay    = document.getElementById('iconPlay');
