@@ -84,7 +84,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:cen
 .nav-overlay.open{opacity:1;visibility:visible;}
 
 .mobile-drawer{
-  display:none;
+  display:flex;
   position:fixed;
   top:0;right:0;
   height:100vh;
@@ -99,8 +99,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:cen
   transition:transform .35s cubic-bezier(.4,0,.2,1);
   z-index:400;
   overflow-y:auto;
+  visibility:hidden;
 }
-.mobile-drawer.open{transform:translateX(0);}
+.mobile-drawer.open{transform:translateX(0);visibility:visible;}
 .mobile-drawer a{display:block;width:100%;padding:1rem 0;font-size:1rem;border-bottom:1px solid var(--border);font-family:var(--font-mono);color:var(--text-dim);text-decoration:none;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;}
 .mobile-drawer a.active{color:var(--accent);}
 [data-theme="spiderverse"] .mobile-drawer a{font-family:'Comic Neue',cursive;font-weight:700;font-size:1.1rem;}
