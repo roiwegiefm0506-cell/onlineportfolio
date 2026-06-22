@@ -685,7 +685,7 @@ h1.hero-name:hover span{animation:glitch .3s linear;}
         <div class="project-type">Web Dev // 2026</div>
         <div class="project-name">Loloi Travellers Inn</div>
         <div class="project-desc">Full-stack hotel booking system for a boutique inn in Dauis, Bohol. Public site + staff admin panel — real-time chat, QR receipts, Google OAuth, role-based access.</div>
-        <div class="project-tags"><span class="project-tag">React</span><span class="project-tag">Node.js</span><span class="project-tag">MongoDB</span></div>
+        <div class="project-tags"><span class="project-tag">JS</span><span class="project-tag">CSS</span><span class="project-tag">HTML</span></div>
       </div>
     </a>
     <a href="#" class="project-card">
@@ -694,7 +694,7 @@ h1.hero-name:hover span{animation:glitch .3s linear;}
         <div class="project-type">Hardware // 2026</div>
         <div class="project-name">APEX Robot</div>
         <div class="project-desc">ESP32-based multi-mode robot — autonomous maze solving, sumo fighting, manual control, and OTA firmware updates. Full academic documentation submitted.</div>
-        <div class="project-tags"><span class="project-tag">Arduino</span><span class="project-tag">C++</span><span class="project-tag">IoT</span></div>
+        <div class="project-tags"><span class="project-tag">ESP32</span><span class="project-tag">C++</span><span class="project-tag">C</span></div>
       </div>
     </a>
     <a href="#" class="project-card">
@@ -747,7 +747,7 @@ h1.hero-name:hover span{animation:glitch .3s linear;}
   <h2 class="section-title">Education</h2>
   <div class="edu-timeline">
     <div class="edu-item">
-      <div class="edu-year">2025 — Present</div>
+      <div class="edu-year">2025 2026 — Present</div>
       <div class="edu-line"></div>
       <div class="edu-content">
         <div class="edu-degree">Bachelor of Science in Computer Engineering</div>
@@ -756,7 +756,7 @@ h1.hero-name:hover span{animation:glitch .3s linear;}
       </div>
     </div>
     <div class="edu-item">
-      <div class="edu-year">2018 — 2022</div>
+      <div class="edu-year">2023 — 2025</div>
       <div class="edu-line"></div>
       <div class="edu-content">
         <div class="edu-degree">Senior High School — ICT STRAND</div>
@@ -854,9 +854,6 @@ navBurger.addEventListener('click', () => {
 
 navOverlay.addEventListener('click', closeMobileMenu);
 
-/* Wrapper used by every nav link (desktop + mobile drawer):
-   navigates to a section AND closes the mobile menu afterward
-   (closing is a no-op on desktop since the drawer isn't open) */
 function navigateTo(id) {
   showSection(id);
   closeMobileMenu();
@@ -865,19 +862,6 @@ function navigateTo(id) {
 /* ══════════════════════════════════════════
    MUSIC — simple <audio> element, manual files
    ══════════════════════════════════════════
-   HOW TO ADD YOUR OWN MUSIC:
-   1. Create a folder named "music" next to this HTML file.
-   2. Drop in two audio files (mp3 works best), one per theme:
-        music/cyberpunk-theme.mp3
-        music/spiderverse-theme.mp3
-   3. Rename the files below in `tracks` to match your filenames,
-      and update the title/artist text shown in the player.
-   4. That's it — the play button, pause button, and theme-switch
-      crossfade all work automatically once the files are there.
-
-   NOTE: until you add your own files, the button will look
-   greyed-out and say "No track loaded" — that's expected, not
-   a bug. It lights up automatically once a real file is found.
 */
 const musicBtn    = document.getElementById('musicBtn');
 const iconPlay    = document.getElementById('iconPlay');
@@ -890,12 +874,12 @@ const tracks = {
   cyberpunk: {
     url: 'music/cyberpunk-theme.mp3',
     title: 'Your Cyberpunk Track',
-    artist: 'Artist Name',
+    artist: 'Rosa Walton',
   },
   spiderverse: {
     url: 'music/spiderverse-theme.mp3',
     title: 'Your Spider-Verse Track',
-    artist: 'Artist Name',
+    artist: 'Post Malone and Swae Lee',
   }
 };
 
